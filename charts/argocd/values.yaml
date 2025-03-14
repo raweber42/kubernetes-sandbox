@@ -8,3 +8,10 @@ argo-cd:
   server:
     extraArgs:
       - --insecure
+    ingress:
+      enabled: true
+      controller: generic
+      ingressClassName: traefik
+      hostname: argocd.local
+      path: /
+  
