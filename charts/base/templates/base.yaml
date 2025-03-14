@@ -17,6 +17,6 @@ spec:
   syncPolicy:
     automated:
       selfHeal: true
-      # prune: true # Enables deletion of resources
+      # prune: true # Disabling prevents accidential delete of all apps in base
     syncOptions:
       - CreateNamespace=true

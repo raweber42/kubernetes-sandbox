@@ -10,7 +10,7 @@ agents: 2
 #   host: "myhost.my.domain" # important for the `server` setting in the kubeconfig
 #   hostIP: "127.0.0.1" # where the Kubernetes API will be listening on
 #   hostPort: "6445" # where the Kubernetes API listening port will be mapped to on your host system
-image: rancher/k3s:v1.20.4-k3s1 # use fixed version
+image: rancher/k3s:v1.32.2-k3s1 # use fixed version
 # network: my-custom-net # same as `--network my-custom-net`
 # subnet: "172.28.0.0/16" # same as `--subnet 172.28.0.0/16`
 token: superSecretToken

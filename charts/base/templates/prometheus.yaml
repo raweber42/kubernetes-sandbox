@@ -1,22 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd
-  namespace: argocd
+  name: prometheus
+  namespace: prometheus
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
   source:
-    repoURL: https://gitlab.com/ralf7060409/kubernetes-sandbox.git
-    path: charts/argocd/
-    targetRevision: main
+    repoURL: https://prometheus-community.github.io/helm-charts
+    chart: prometheus
+    targetRevision: 25.3.1
+    helm:
+      values: |
+        pushgateway:
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: prometheus
   syncPolicy:
     automated:
       selfHeal: true
-      # prune: true # Disabling prevents accidential deletion of all argo-managed resources
+      prune: true
     syncOptions:
       - CreateNamespace=true

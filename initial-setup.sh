@@ -33,25 +33,31 @@ then
     brew install argocd
 fi
 
+helm repo add argocd https://argoproj.github.io/argo-helm
+helm dep update charts/argocd/
 
-helm repo add argo-cd https://argoproj.github.io/argo-helm
-helm dep update charts/argo-cd/
+# Deploy ArgoCD with Helm
+if helm status argocd --namespace argocd > /dev/null 2>&1; then
+  echo "ArgoCD is already installed, skipping deployment."
+else
+  echo "Deploying ArgoCD..."
+  helm install argocd charts/argocd/ -f charts/argocd/values.yaml --namespace argocd --create-namespace
+fi
 
+# Wait for ArgoCD server to be ready
+echo "Waiting for ArgoCD pods to become available..."
+kubectl wait --for=condition=Available deployment/argocd-server -n argocd --timeout=120s
 
+# Deploy app of apps for ArgoCDresources-finalizer.argocd.argoproj.io
+helm template charts/base/ | kubectl apply -f -
 
-# # Deploy ArgoCD
-echo "Deploying ArgoCD..."
-helm install argo-cd charts/argo-cd/ --namespace argocd --create-namespace
+# Expose ArgoCD for external access
+echo "Exposing ArgoCD dashboard..."
+kubectl apply -f argocd-ingress.yaml
 
-# # Wait for ArgoCD server to be ready
-# kubectl wait --for=condition=Available deployment/argocd-server -n argocd --timeout=120s
-
-# # Expose ArgoCD for external access
-# kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-
-# # Retrieve ArgoCD admin password
-# echo "ArgoCD admin password:"
-# kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-# echo
+# Retrieve ArgoCD admin password
+echo "ArgoCD admin password:"
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+echo
 
 echo "k3s setup complete!"
