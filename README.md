@@ -24,6 +24,10 @@ This script performs the following actions:
   * Waits for the ArgoCD server pods to be available.
   * Deploys the App of Apps (currently containing ArgoCD and Prometheus) using Helm templating.
   * Exposes the ArgoCD dashboard via an Ingress resource configured for Traefik.
+* **Prometheus Installation:**
+  * Adds the Prometheus Helm repository and updates dependencies.
+  * Deploys Prometheus using Helm into the `monitoring` namespace.
+  * Exposes the Prometheus dashboard via an Ingress resource configured for Traefik.
 * **Access Information:**
   * The script prints the initial admin password for ArgoCD.
   * To access the dashboard without annoying port-forwarding, add an entry to your `/etc/hosts` file:
@@ -36,6 +40,7 @@ This script performs the following actions:
   * Once added, access ArgoCD in your browser at: [http://argocd.local:8080](http://argocd.local:8080)
       * Username: `admin`
       * Password: (printed in the terminal)
+  * Access the monitoring dashboard in your browser at: [http://monitoring.argocd.local:8080](http://monitoring.argocd.local:8080)
 
 ### Teardown
 To remove the k3s environment and clean up resources, run:

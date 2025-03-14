@@ -51,14 +51,6 @@ kubectl wait --for=condition=Available deployment/argocd-server -n argocd --time
 # Deploy app of apps for ArgoCDresources-finalizer.argocd.argoproj.io
 helm template charts/base/ | kubectl apply -f -
 
-# Expose ArgoCD for external access
-echo "Exposing ArgoCD dashboard..."
-kubectl apply -f argocd-ingress.yaml
-
-# Expose Prometheus for external access
-echo "Exposing monitoring dashboard..."
-kubectl apply -f monitoring-ingress.yaml
-
 # Retrieve ArgoCD admin password
 echo "ArgoCD admin password:"
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
