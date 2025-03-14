@@ -17,6 +17,13 @@ spec:
           enabled: false
         alertmanager:
           enabled: false
+        ingress:
+          enabled: true
+          ingressClassName: traefik
+          hosts:
+            - monitoring.argocd.local
+          path: /
+  paths:
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
