@@ -30,6 +30,7 @@ This script performs the following actions:
 
       ```lua
       127.0.0.1 argocd.local
+      127.0.0.1 monitoring.argocd.local
       ```
 
   * Once added, access ArgoCD in your browser at: [http://argocd.local:8080](http://argocd.local:8080)
@@ -44,6 +45,8 @@ sh teardown.sh
 ```
 
 This script will delete the k3s cluster and all associated resources, leaving your local system clean.
+Don't forget to remove the entries from your `/etc/hosts` file, too!
+
 
 ## Troubleshooting
 
