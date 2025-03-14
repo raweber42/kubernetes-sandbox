@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://gitlab.com/ralf7060409/kubernetes-sandbox.git
+    repoURL: https://github.com/raweber42/kubernetes-sandbox.git
     path: charts/argocd/
     targetRevision: main
   destination:
