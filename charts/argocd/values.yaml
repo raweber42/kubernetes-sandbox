@@ -16,4 +16,6 @@ argo-cd:
       ingressClassName: traefik
       hostname: argocd.local
       path: /
-  
+  configs:
+    cm:
+      application.resourceTrackingMethod: "annotation+label"
