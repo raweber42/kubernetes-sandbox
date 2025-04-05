@@ -22,7 +22,7 @@
 #             enabled: true
 #             ingressClassName: traefik
 #             hosts:
-#               - monitoring.argocd.local
+#               - prometheus.local
 #             path: /
 #   paths:
 #   destination:

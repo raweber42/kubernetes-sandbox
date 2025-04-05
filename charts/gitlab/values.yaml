@@ -1,0 +1,27 @@
+global:
+  hosts:
+    domain: gitlab.local
+    https: false
+  edition: ce
+  minio:
+    enabled: true
+  gitaly:
+    enabled: true
+  ingress:
+    provider: trafik
+    class: traefik
+    configureCertmanager: false
+certmanager-issuer:
+  email: me@example.com
+gitlab-runner:
+  install: false
+registry:
+  enabled: false
+# gitlab:
+  # sidekiq:
+  #   enabled: false
+  # toolbox:
+  #   enabled: false
+nginx-ingress:
+  # Disable the deployment of the in-chart NGINX Ingress provider.
+  enabled: false

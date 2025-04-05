@@ -1,0 +1,18 @@
+apiVersion: project.harbor.crossplane.io/v1alpha1
+kind: RetentionPolicy
+metadata:
+  name: test-retention-policy
+spec:
+  forProvider:
+    rule:
+      - nDaysSinceLastPull: 5
+        # repoMatching: "**"
+        tagMatching: "**"
+      - nDaysSinceLastPush: 10
+        # repoMatching: "**"
+        tagMatching: "**"
+    schedule: Daily
+    scopeRef:
+      name: test
+  providerConfigRef:
+    name: provider-harbor-config

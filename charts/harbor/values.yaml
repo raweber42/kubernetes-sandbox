@@ -1,0 +1,59 @@
+expose:
+  type: ingress
+  tls:
+    enabled: false
+  ingress:
+    hosts:
+      core: harbor.local
+    className: "traefik"
+    annotations:
+      # note different ingress controllers may require a different ssl-redirect annotation
+      # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
+      ingress.kubernetes.io/ssl-redirect: "false"
+      ingress.kubernetes.io/proxy-body-size: "0"
+
+externalURL: http://harbor.local
+
+harborAdminPassword: "password"  # Change this!
+
+database:
+  type: internal
+  internal:
+    password: "password"  # Change this!
+
+persistence:
+  enabled: false
+  resourcePolicy: "keep"
+  persistentVolumeClaim:
+    registry:
+      storageClass: "local-path"
+      size: 500Mi
+    chartmuseum:
+      storageClass: "local-path"
+      size: 100Mi
+    jobservice:
+      storageClass: "local-path"
+      size: 100Mi
+    database:
+      storageClass: "local-path"
+      size: 1Gi
+
+jobservice:
+  workerCount: 10
+
+trivy:
+  enabled: false
+
+notary:
+  enabled: false  # Disable Notary unless required
+
+chartmuseum:
+  enabled: true
+
+exporter:
+  enabled: false  # Disable Harbor exporter for now
+
+metrics:
+  enabled: false  # Prometheus will be added later
+
+logLevel: info

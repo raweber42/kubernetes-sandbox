@@ -1,0 +1,13 @@
+apiVersion: project.harbor.crossplane.io/v1alpha1
+kind: ImmutableTagRule
+metadata:
+  name: test-immutable-tag-rule
+spec:
+  forProvider:
+    projectIdRef:
+      name: test
+    repoMatching: "**"
+    tagMatching: "nightly,latest"
+  providerConfigRef:
+    name: provider-harbor-config
+  deletionPolicy: "Delete"

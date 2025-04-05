@@ -1,0 +1,36 @@
+apiVersion: groups.gitlab.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: group-one
+spec:
+  forProvider:
+    description: this is group number ONE
+    name: GroupOne
+    path: group-one
+  providerConfigRef:
+    name: provider-gitlab-config
+---
+apiVersion: groups.gitlab.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: group-two
+spec:
+  forProvider:
+    description: this is group number TWO
+    name: GroupTwo
+    path: group-two
+  providerConfigRef:
+    name: provider-gitlab-config
+---
+apiVersion: groups.gitlab.crossplane.io/v1alpha1
+kind: Group
+metadata:
+  name: group-three
+spec:
+  forProvider:
+    description: this is group number THREE
+    name: GroupThree
+    path: group-three
+  providerConfigRef:
+    name: provider-gitlab-config
+---

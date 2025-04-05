@@ -1,0 +1,53 @@
+# apiVersion: config.harbor.crossplane.io/v1alpha1
+# kind: ConfigAuth
+# metadata:
+#   name: oidc-config-auth
+#   annotations:
+#     crossplane.io/external-name: "/configurations" # This is the ID of the group in GitLab
+# spec:
+#   managementPolicies: ["Observe"] 
+#   forProvider:
+#     authMode: oidc_auth
+#     primaryAuthMode: true
+#     oidcAdminGroup: /admin
+#     oidcAutoOnboard: false
+#     oidcClientId: harbor
+#     oidcClientSecretSecretRef:
+#       name: oidc-client-secret  # TODO
+#       key: secret  # TODO
+#       namespace: harbor  # TODO: Create this secret from vault, right now was manually created
+#     oidcEndpoint: https://keycloak.cistec.io/realms/cistec
+#     oidcGroupsClaim: full_group_path
+#     oidcName: keycloak
+#     oidcScope: openid
+#     oidcVerifyCert: true
+#   providerConfigRef:
+#     name: provider-harbor-config
+#   deletionPolicy: Delete
+
+apiVersion: config.harbor.crossplane.io/v1alpha1
+kind: ConfigAuth
+metadata:
+  name: oidc-config-auth
+  annotations:
+    crossplane.io/external-name: "/configurations" # This is the ID of the group in GitLab
+spec:
+  managementPolicies: ["Observe"] 
+  forProvider:
+    authMode: oidc_auth
+    primaryAuthMode: true
+    oidcAdminGroup: /admin
+    oidcAutoOnboard: false
+    oidcClientId: harbor-test
+    oidcClientSecretSecretRef:
+      name: oidc-client-secret  # TODO
+      key: secret  # TODO
+      namespace: harbor  # TODO: Create this secret from vault, right now was manually created
+    oidcEndpoint: https://keycloak.crossplane-system.svc.cluster.local/realms/test-for-harbor
+    oidcGroupsClaim: full_group_path
+    oidcName: keycloak
+    oidcScope: openid profile email phone address
+    oidcVerifyCert: true
+  providerConfigRef:
+    name: provider-harbor-config
+  deletionPolicy: Delete

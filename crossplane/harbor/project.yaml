@@ -1,0 +1,14 @@
+apiVersion: project.harbor.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  name: test
+spec:
+  forProvider:
+    enableContentTrust: true
+    enableContentTrustCosign: false
+    name: test
+    public: false
+  providerConfigRef:
+    name: provider-harbor-config
+  deletionPolicy: "Delete"
+
