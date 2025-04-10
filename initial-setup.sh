@@ -93,7 +93,7 @@ if [ "${ARGO_ENABLED}" == "true" ]; then
   if helm status argocd --namespace argocd > /dev/null 2>&1; then
     echo "ArgoCD is already installed, skipping deployment."
   else
-    helm repo add argocd https://argoproj.github.io/argo-helm
+    helm repo add argocd https://argoproj.github.io/argo-helm # TODO: Check if already exists
     helm dep update charts/argocd/
     echo "Deploying ArgoCD..."
     helm install argocd charts/argocd/ -f charts/argocd/values.yaml --namespace argocd --create-namespace
@@ -117,7 +117,7 @@ if [ "${CROSSPLANE_ENABLED}" == "true" ]; then
     echo "Crossplane is already installed, skipping deployment."
   else
     echo "Installing Crossplane with helm..."
-    helm repo add crossplane-stable https://charts.crossplane.io/stable
+    helm repo add crossplane-stable https://charts.crossplane.io/stable # TODO: Check if already exists
     helm repo update
     helm install crossplane \
     --namespace crossplane-system \
@@ -138,7 +138,7 @@ if [ "${GITLAB_ENABLED}" == "true" ]; then
     echo "GitLab is already installed, skipping deployment."
   else
     echo "Installing GitLab with helm..."
-    helm repo add gitlab https://charts.gitlab.io
+    helm repo add gitlab https://charts.gitlab.io # TODO: Check if already exists
     helm repo update
     helm install gitlab gitlab/gitlab \
     --namespace gitlab \
@@ -148,6 +148,9 @@ if [ "${GITLAB_ENABLED}" == "true" ]; then
     # Wait for GitLab pods to become available
     echo "Waiting for GitLab pods to become available..."
     kubectl wait --for=condition=Available deployment/gitlab-webservice-default -n gitlab --timeout=120s
+
+    # TODO: Provider needs access token
+    # See here: https://github.com/crossplane-contrib/provider-gitlab/tree/master
 
     # Retrieve GitLab admin password
     echo "GitLab admin password:"
@@ -165,7 +168,7 @@ if [ "${VAULT_ENABLED}" == "true" ]; then
     echo "OpenBao is already installed, skipping deployment."
   else
     echo "Installing OpenBao with helm..."
-    helm repo add openbao https://openbao.github.io/charts
+    helm repo add openbao https://openbao.github.io/charts # TODO: Check if already exists
     helm repo update
     helm install openbao openbao/openbao \
     --namespace openbao \
@@ -187,7 +190,7 @@ if [ "${HARBOR_ENABLED}" == "true" ]; then
     echo "Harbor is already installed, skipping deployment."
   else
     echo "Installing Harbor with helm..."
-    helm repo add harbor https://helm.goharbor.io
+    helm repo add harbor https://helm.goharbor.io # TODO: Check if already exists
     helm repo update
     helm install harbor harbor/harbor \
     --namespace harbor \

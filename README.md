@@ -60,7 +60,7 @@ To access the services in your browser, you need to add the following entries to
 127.0.0.1 prometheus.local
 127.0.0.1 vault.local
 127.0.0.1 crossplane.local
-127.0.0.1 gitlab.local
+127.0.0.1 gitlab.localhost
 ```
 
 Without these entries, the dashboards and services will _not_ be accessible via the provided URLs.

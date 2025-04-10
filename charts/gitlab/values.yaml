@@ -1,6 +1,6 @@
 global:
   hosts:
-    domain: gitlab.local
+    domain: localhost
     https: false
   edition: ce
   minio:
