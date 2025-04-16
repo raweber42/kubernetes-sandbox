@@ -1,0 +1,14 @@
+apiVersion: project.harbor.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  name: ghcr-proxy-cache
+spec:
+  forProvider:
+    name: ghcr-proxy-cache
+    public: false
+    registryIdRef: # Setting this enables the registry as proxy cache
+      name: ghcr-registry
+  providerConfigRef:
+    name: harbor
+
+# For reference: https://marketplace.upbound.io/providers/globallogicuki/provider-harbor/v0.2.2/resources/project.harbor.crossplane.io/Project/v1alpha1

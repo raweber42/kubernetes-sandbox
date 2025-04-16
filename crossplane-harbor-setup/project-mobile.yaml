@@ -1,0 +1,10 @@
+apiVersion: project.harbor.crossplane.io/v1alpha1
+kind: Project
+metadata:
+  name: mobile
+spec:
+  forProvider:
+    name: mobile
+    public: false
+  providerConfigRef:
+    name: harbor

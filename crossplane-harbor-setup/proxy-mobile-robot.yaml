@@ -1,0 +1,28 @@
+apiVersion: robotaccount.harbor.crossplane.io/v1alpha1
+kind: RobotAccount
+metadata:
+  name: ghcr-proxy-mobile-robot
+spec:
+  forProvider:
+    description: robot with access to proxy cache and mobile project
+    level: system
+    name: ghcr-proxy-mobile-robot
+    permissions:
+      - access:
+          - action: push
+            resource: repository
+          - action: pull
+            resource: repository
+        kind: project
+        namespace: mobile
+      - access:
+          - action: pull
+            resource: repository
+        kind: project
+        namespace: ghcr-proxy-cache
+  writeConnectionSecretToRef:
+    name: ghcr-proxy-mobile-robot-creds
+    namespace: harbor
+  providerConfigRef:
+    name: harbor
+

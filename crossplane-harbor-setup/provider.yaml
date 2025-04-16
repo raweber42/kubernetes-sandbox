@@ -1,0 +1,8 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+name: provider-harbor
+spec:
+  package: xpkg.upbound.io/globallogicuki/provider-harbor:v0.2.2
+
+# TODO: Add debug log level for crossplane runtime configuration

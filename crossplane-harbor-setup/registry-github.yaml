@@ -1,0 +1,17 @@
+apiVersion: registry.harbor.crossplane.io/v1alpha1
+kind: Registry
+metadata:
+  name: ghcr-registry
+spec:
+  forProvider:
+    name: ghcr-registry
+    description: Github Container Registry
+    endpointUrl: https://ghcr.io
+    providerName: github
+  providerConfigRef:
+    name: harbor
+  writeConnectionSecretToRef: # TODO: Replace with secret store
+    name: ghcr-registry-connection-details
+    namespace: harbor
+
+# For providerName, see here: https://github.com/globallogicuki/provider-harbor/issues/26
