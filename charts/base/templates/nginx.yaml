@@ -1,20 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: nginx
+  name: nginx-appset
   namespace: argocd
 spec:
-  project: default
-  source:
-    repoURL: https://github.com/raweber42/kubernetes-sandbox.git
-    path: charts/nginx/
-    targetRevision: main
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: argocd
-  syncPolicy:
-    automated:
-      selfHeal: true
-      # prune: true # Disabling prevents accidential delete of all apps in base
-    syncOptions:
-      - CreateNamespace=true
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+  - list:
+      elements:
+      - name: 1-nginx
+      - name: 2-nginx
+      - name: 3-nginx
+      - name: 4-nginx
+      - name: 5-nginx
+      - name: 6-nginx
+  template:
+    metadata:
+      name: '{{.name}}'
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/raweber42/kubernetes-sandbox.git
+        targetRevision: main
+        path: charts/nginx/
+        helm:
+          valuesObject:
+            name: '{{.name}}'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: argocd
+      syncPolicy:
+        automated:
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

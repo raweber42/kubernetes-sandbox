@@ -2,7 +2,7 @@
 set -e
 
 # Default values for flags
-ARGO_ENABLED=false
+ARGO_ENABLED=true
 CROSSPLANE_ENABLED=false
 GITLAB_ENABLED=false
 VAULT_ENABLED=false

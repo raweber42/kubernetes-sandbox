@@ -4,7 +4,7 @@ argo-cd:
   notifications:
     enabled: false
   applicationSet:
-    enabled: false
+    enabled: true
   global:
     domain: argocd.local
   server:
