@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-application
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/raweber42/kubernetes-sandbox.git
+    targetRevision: main
+    path: charts/nginx/
+    helm:
+      parameters:
+        - name: name
+          value: nginx
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

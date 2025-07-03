@@ -5,20 +5,15 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
-  goTemplateOptions: ["missingkey=error"]
+  # goTemplateOptions: ["missingkey=error"]
   generators:
-  - list:
-      elements:
-      - name: 1-nginx
-      - name: 2-nginx
-      - name: 3-nginx
-      - name: 4-nginx
-      - name: 5-nginx
-      - name: 6-nginx
+    - list:
+        elements:
+          - hello: nginx1
+          - hello: nginx2
   template:
     metadata:
-      name: '{{.name}}'
-      namespace: argocd
+      name: '{{ "{{" }}.hello{{ "}}" }}'
     spec:
       project: default
       source:
@@ -28,10 +23,10 @@ spec:
         helm:
           parameters:
             - name: name
-              value: '{{ .name }}'
+              value: '{{ "{{" }}.hello{{ "}}" }}'
       destination:
         server: https://kubernetes.default.svc
-        namespace: argocd
+        namespace: default
       syncPolicy:
         automated:
           selfHeal: true
