@@ -1,34 +1,34 @@
-apiVersion: argoproj.io/v1alpha1
-kind: ApplicationSet
-metadata:
-  name: nginx-appset
-  namespace: argocd
-spec:
-  goTemplate: true
-  # goTemplateOptions: ["missingkey=error"]
-  generators:
-    - list:
-        elements:
-          - hello: nginx1
-          - hello: nginx2
-  template:
-    metadata:
-      name: '{{ "{{" }}.hello{{ "}}" }}'
-    spec:
-      project: default
-      source:
-        repoURL: https://github.com/raweber42/kubernetes-sandbox.git
-        targetRevision: main
-        path: charts/nginx/
-        helm:
-          parameters:
-            - name: name
-              value: '{{ "{{" }}.hello{{ "}}" }}'
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: default
-      syncPolicy:
-        automated:
-          selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: nginx-appset
+#   namespace: argocd
+# spec:
+#   goTemplate: true
+#   goTemplateOptions: ["missingkey=error"]
+#   generators:
+#     - list:
+#         elements:
+#           - name: nginx1
+#           - name: nginx2
+#   template:
+#     metadata:
+#       name: '{{ "{{" }}.name{{ "}}" }}'
+#     spec:
+#       project: default
+#       source:
+#         repoURL: https://github.com/raweber42/kubernetes-sandbox.git
+#         targetRevision: main
+#         path: charts/nginx/
+#         helm:
+#           parameters:
+#             - name: name
+#               value: '{{ "{{" }}.name{{ "}}" }}'
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: default
+#       syncPolicy:
+#         automated:
+#           selfHeal: true
+#         syncOptions:
+#           - CreateNamespace=true
