@@ -2,8 +2,8 @@
 set -e
 
 # Default values for flags
-ARGO_ENABLED=true
-CROSSPLANE_ENABLED=false
+ARGO_ENABLED=false
+CROSSPLANE_ENABLED=true
 GITLAB_ENABLED=false
 VAULT_ENABLED=false
 HARBOR_ENABLED=false
@@ -121,6 +121,7 @@ if [ "${CROSSPLANE_ENABLED}" == "true" ]; then
     helm repo update
     helm install crossplane \
     --namespace crossplane-system \
+    -f charts/crossplane/values.yaml \
     --create-namespace crossplane-stable/crossplane
   fi
 

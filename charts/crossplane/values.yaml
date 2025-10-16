@@ -1,0 +1,3 @@
+args: ["--sync-interval=30s"] # default is 1h
+# TODO: Go on here: How to pass this properly????
+# TODO: Consider waiting time for buckets, maybe use another resource?
